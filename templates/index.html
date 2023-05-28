@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fake News📰 Detection System</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Pacifico"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Arimo"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Hind:300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="login">
+      <h1>Fake News📰 Detector</h1>
+      <button class="btn-primary" id="btn1">Political Hoaxes</button>
+      <button class="btn-primary" id="btn2">Clickbait</button>
+      <button class="btn-primary" id="btn3">Articles on Hoaxes</button>
+
+      <form id="form1" action="{{ url_for('predict')}}" method="POST">
+    	<textarea  name="message" rows="6" cols="50" required="required" style="font-size: 18pt"></textarea>
+		<br> </br>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict Political Hoaxes</button>
+
+        	<div class="results">
+
+	{% if prediction == ['FAKE']%}
+	<h2 style="color:red;">Looking Spam⚠️Political News📰 </h2>
+	{% elif prediction == ['REAL']%}
+				<h2 style="color:green;"><b>Looking Real Political News📰</b></h2>
+	{% endif %}
+
+	</div>
+
+    </form>
+	<form id="form2" action="{{ url_for('predict')}}" method="POST">
+    	<textarea  name="message" rows="6" cols="50" required="required" style="font-size: 18pt"></textarea>
+		<br> </br>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict Clickbait</button>
+
+        	<div class="results">
+
+	{% if prediction == ['FAKE']%}
+	<h2 style="color:red;">Looking Spam⚠️Clickbait📰 </h2>
+	{% elif prediction == ['REAL']%}
+				<h2 style="color:green;"><b>Looking Real Clickbait📰</b></h2>
+	{% endif %}
+
+	</div>
+
+    </form>
+	<form id="form3" action="{{ url_for('predict')}}" method="POST">
+    	<textarea  name="message" rows="6" cols="50" required="required" style="font-size: 18pt"></textarea>
+		<br> </br>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict Articles on Hoaxes</button>
+
+        	<div class="results">
+
+	</div>
+
+    </form>
+	{% if prediction == ['FAKE']%}
+	<h2 style="color:red;">Looking Spam⚠️Articles News📰 </h2>
+	{% elif prediction == ['REAL']%}
+				<h2 style="color:green;"><b>Looking Real Articles News📰</b></h2>
+	{% endif %}
+    </div>
+	<script type="text/javascript">
+	const form1 = document.getElementById("form1");
+	const form2 = document.getElementById("form2");
+	const form3 = document.getElementById("form3");
+
+	form1.style.display = "none";
+	form2.style.display = "none";
+	form3.style.display = "none";
+
+      const btn1 = document.getElementById("btn1");
+	  const btn2 = document.getElementById("btn2");
+	  const btn3 = document.getElementById("btn3");
+
+      btn1.addEventListener("click", () => {
+        form2.style.display = "none";
+		form3.style.display = "none";
+
+		
+        if (form1.style.display === "none") {
+          // 👇️ this SHOWS the form
+          form1.style.display = "block";
+        } else {
+          // 👇️ this HIDES the form
+          form1.style.display = "none";
+        }
+      });
+	  btn2.addEventListener("click", () => {
+        form1.style.display = "none";
+		form3.style.display = "none";
+
+        if (form2.style.display === "none") {
+          // 👇️ this SHOWS the form
+          form2.style.display = "block";
+        } else {
+          // 👇️ this HIDES the form
+          form2.style.display = "none";
+        }
+      });
+	  btn3.addEventListener("click", () => {
+        form1.style.display = "none";
+		form2.style.display = "none";
+
+        if (form3.style.display === "none") {
+          // 👇️ this SHOWS the form
+          form3.style.display = "block";
+        } else {
+          // 👇️ this HIDES the form
+          form3.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
